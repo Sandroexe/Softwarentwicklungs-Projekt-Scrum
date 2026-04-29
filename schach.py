@@ -1,5 +1,7 @@
 # schach.py
 
+print("starte schach.py...")
+
 from connection.server import start_server
 from connection.client import connect_to_server
 
