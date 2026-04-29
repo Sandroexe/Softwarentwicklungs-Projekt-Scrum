@@ -2,48 +2,47 @@ import socket
 
 
 def get_ip_address():
-    """Gibt die eigene lokale IP-Adresse zurück.
+    """Get the local IP address.
 
-    Die UDP-Verbindung zu einer externen Adresse dient nur dazu, die lokale
-    Netzwerk-Schnittstelle zu ermitteln. Zielserver und -port müssen nicht
-    erreichbar sein.
+    The UDP connection to an external address is only used to determine the local
+    network interface. The target server and port do not need to be reachable.
     """
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        # Ziel-IP kann beliebig sein, Hauptsache es erlaubt dem System, eine
-        # Route zu bestimmen und die eigene Adresse zurückzugeben.
-        s.connect(('8.8.8.8', 1))
-        IP = s.getsockname()[0]
+        # Target IP can be any, as long as it allows the system to determine a
+        # route and return the local address.
+        sock.connect(('8.8.8.8', 1))
+        ip = sock.getsockname()[0]
     except Exception:
-        # Wenn die Abfrage fehlschlägt, wird die Loopback-Adresse verwendet.
-        IP = '127.0.0.1'
+        # If the query fails, use the loopback address.
+        ip = '127.0.0.1'
     finally:
-        s.close()
-    return IP
+        sock.close()
+    return ip
 
 
 def start_server():
-    """Startet den Schach-Server und wartet auf einen Client."""
-    host = '0.0.0.0'  # Empfängt Verbindungen von allen Netzwerkschnittstellen.
+    """Start the Chess server and wait for a client connection."""
+    host = '0.0.0.0'  # Accept connections from all network interfaces.
     port = 65432
 
-    mein_ip = get_ip_address()
+    local_ip = get_ip_address()
 
-    # Öffnet einen TCP-Socket und sorgt dafür, dass er automatisch geschlossen wird.
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind((host, port))
-        s.listen()  # Wartet auf eingehende Verbindungen.
-        print(f"--- SCHACH SERVER ---")
-        print(f"Deine lokale IP-Adresse: {mein_ip}")
-        print(f"Warte auf Verbindung auf Port {port}...")
+    # Open TCP socket and ensure it is automatically closed.
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.bind((host, port))
+        sock.listen()  # Wait for incoming connections.
+        print(f"--- CHESS SERVER ---")
+        print(f"Your local IP address: {local_ip}")
+        print(f"Waiting for connection on port {port}...")
 
-        # Akzeptiert eine ankommende Verbindung und blockiert, bis ein Client kommt.
-        conn, addr = s.accept()
+        # Accept an incoming connection and block until a client arrives.
+        conn, addr = sock.accept()
         with conn:
-            # addr enthält die Adresse des Clients in der Form (ip, port).
-            print(f"Verbunden mit Client-IP: {addr[0]}")
-            # Sendet dem Client eine Bestätigungsmeldung.
-            conn.sendall(b"Verbindung zum Schach-Server erfolgreich!")
+            # addr contains the client address in the form (ip, port).
+            print(f"Connected with client IP: {addr[0]}")
+            # Send confirmation message to client.
+            conn.sendall(b"Successfully connected to Chess server!")
 
 
 if __name__ == "__main__":

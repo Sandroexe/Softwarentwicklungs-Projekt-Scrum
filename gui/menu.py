@@ -1,43 +1,43 @@
 import tkinter as tk
 
 
-def zeige_menu():
-    """Öffnet die Auswahl-GUI und gibt "server" oder "client" zurück."""
-    auswahl = None
+def show_menu():
+    """Display selection GUI and return 'server' or 'client'."""
+    selection = None
     
-    def waehle_server():
-        nonlocal auswahl
-        auswahl = "server"
-        fenster.destroy()
+    def choose_server():
+        nonlocal selection
+        selection = "server"
+        window.destroy()
     
-    def waehle_client():
-        nonlocal auswahl
-        auswahl = "client"
-        fenster.destroy()
+    def choose_client():
+        nonlocal selection
+        selection = "client"
+        window.destroy()
     
-    # Fenster erstellen
-    fenster = tk.Tk()
-    fenster.title("SCHACH - Modus Auswahl")
-    fenster.geometry("300x200")
-    fenster.resizable(False, False)
+    # Create window
+    window = tk.Tk()
+    window.title("CHESS - Mode Selection")
+    window.geometry("300x200")
+    window.resizable(False, False)
     
-    # Titel
-    titel = tk.Label(fenster, text="SCHACH", font=("Arial", 24, "bold"))
-    titel.pack(pady=20)
+    # Title
+    title = tk.Label(window, text="CHESS", font=("Arial", 24, "bold"))
+    title.pack(pady=20)
     
-    # Untertitel
-    untertitel = tk.Label(fenster, text="Wähle deinen Modus", font=("Arial", 12))
-    untertitel.pack(pady=10)
+    # Subtitle
+    subtitle = tk.Label(window, text="Select your mode", font=("Arial", 12))
+    subtitle.pack(pady=10)
     
-    # Button-Rahmen
-    button_rahmen = tk.Frame(fenster)
-    button_rahmen.pack(pady=20)
+    # Button frame
+    button_frame = tk.Frame(window)
+    button_frame.pack(pady=20)
     
-    # Server Button
+    # Server button
     button_server = tk.Button(
-        button_rahmen,
+        button_frame,
         text="🖥️ Server",
-        command=waehle_server,
+        command=choose_server,
         width=15,
         height=2,
         font=("Arial", 11),
@@ -46,11 +46,11 @@ def zeige_menu():
     )
     button_server.pack(pady=10)
     
-    # Client Button
+    # Client button
     button_client = tk.Button(
-        button_rahmen,
+        button_frame,
         text="👤 Client",
-        command=waehle_client,
+        command=choose_client,
         width=15,
         height=2,
         font=("Arial", 11),
@@ -59,8 +59,8 @@ def zeige_menu():
     )
     button_client.pack(pady=10)
     
-    # Fenster anzeigen
-    fenster.mainloop()
+    # Display window
+    window.mainloop()
     
-    return auswahl
+    return selection
 
