@@ -1,5 +1,6 @@
 import tkinter as tk
-from connection.client import connect_to_server
+import socket
+from gui.game import show_game_window
 
 
 def show_client_window():
@@ -82,7 +83,6 @@ def show_client_window():
 def connect_to_server_with_ip(ip_address):
     """Connect to server with provided IP address."""
     try:
-        import socket
         port = 65432
         
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -93,32 +93,8 @@ def connect_to_server_with_ip(ip_address):
             data = sock.recv(1024)
             print(f"Response: {data.decode('utf-8')}")
             
-            # Show success window
-            success_window = tk.Tk()
-            success_window.title("Connected")
-            success_window.geometry("300x150")
-            success_window.configure(bg="#f0f0f0")
-            
-            success_label = tk.Label(
-                success_window,
-                text="Successfully connected!",
-                font=("Arial", 14, "bold"),
-                bg="#f0f0f0",
-                fg="#2e7d32"
-            )
-            success_label.pack(pady=30)
-            
-            close_button = tk.Button(
-                success_window,
-                text="Close",
-                command=success_window.destroy,
-                font=("Arial", 12),
-                bg="#4CAF50",
-                fg="white"
-            )
-            close_button.pack()
-            
-            success_window.mainloop()
+            # Show game window after successful connection
+            show_game_window("client")
     except Exception as e:
         # Show error window
         error_window = tk.Tk()

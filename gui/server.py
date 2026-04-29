@@ -1,5 +1,6 @@
 import tkinter as tk
 from connection.server import get_ip_address, start_server
+from gui.game import show_game_window
 
 
 def show_server_window():
@@ -46,7 +47,7 @@ def show_server_window():
     button_start = tk.Button(
         window,
         text="Start Server",
-        command=lambda: [window.destroy(), start_server()],
+        command=lambda: [window.destroy(), start_server(), show_game_window("server")],
         font=("Arial", 14, "bold"),
         bg="#4CAF50",
         fg="white",
