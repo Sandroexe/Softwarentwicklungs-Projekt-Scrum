@@ -222,3 +222,10 @@ def show_game_window(mode):
     footer_label.pack(pady=5)
     
     window.mainloop()
+
+
+if __name__ == "__main__":
+    # Test the game window directly
+    import sys
+    mode = sys.argv[1] if len(sys.argv) > 1 else "server"
+    show_game_window(mode)

@@ -59,3 +59,8 @@ def show_server_window():
     button_start.pack(fill=tk.X, padx=20, pady=20)
     
     window.mainloop()
+
+
+if __name__ == "__main__":
+    # Test the server window directly
+    show_server_window()

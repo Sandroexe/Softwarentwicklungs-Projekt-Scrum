@@ -122,3 +122,8 @@ def connect_to_server_with_ip(ip_address):
         close_button.pack()
         
         error_window.mainloop()
+
+
+if __name__ == "__main__":
+    # Test the client window directly
+    show_client_window()

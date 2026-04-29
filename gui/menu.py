@@ -81,3 +81,9 @@ def show_menu():
     
     return selection
 
+
+if __name__ == "__main__":
+    # Test the menu window directly
+    result = show_menu()
+    print(f"Selected mode: {result}")
+
