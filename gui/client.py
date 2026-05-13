@@ -58,7 +58,8 @@ def show_client_window():
                 net.connect_to_server(ip)
                 window.after(0, lambda: launch_game(net))
             except Exception as e:
-                window.after(0, lambda: show_error(str(e)))
+                err_msg = str(e)
+                window.after(0, lambda: show_error(err_msg))
 
         threading.Thread(target=run_connect, daemon=True).start()
 
